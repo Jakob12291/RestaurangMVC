@@ -1,0 +1,80 @@
+@model LedigaBordViewModel
+@{
+    ViewData["Title"] = "Boka bord";
+    ViewData["Description"] = "Boka bord på Bella Cucina. Sök lediga bord för önskat datum, tid och antal gäster.";
+}
+
+<div class="bc-admin-head" style="background: var(--bc-green);">
+    <div class="container text-center">
+        <p class="bc-eyebrow" style="color:#ffd9a0;">Prenota un tavolo</p>
+        <h1>Boka bord</h1>
+    </div>
+</div>
+
+<section class="bc-section pt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <p class="text-center text-muted mb-4">
+                    Sök lediga bord nedan. För att slutföra din bokning, ring oss på
+                    <a href="tel:+46812345678">08-123 45 67</a> eller maila
+                    <a href="mailto:ciao@bellacucina.se">ciao@bellacucina.se</a>.
+                </p>
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <form method="post" class="bc-card p-4 mb-4">
+                    @Html.AntiForgeryToken()
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label asp-for="Datum" class="form-label"></label>
+                            <input asp-for="Datum" type="date" class="form-control" />
+                            <span asp-validation-for="Datum" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Tid" class="form-label"></label>
+                            <input asp-for="Tid" type="time" class="form-control" />
+                            <span asp-validation-for="Tid" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="AntalGaster" class="form-label"></label>
+                            <input asp-for="AntalGaster" type="number" min="1" class="form-control" />
+                            <span asp-validation-for="AntalGaster" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-bc mt-3">Sök lediga bord</button>
+                </form>
+
+                @if (Model.HarSökt)
+                {
+                    if (Model.Resultat is { Count: > 0 })
+                    {
+                        <h2 class="h4 mb-3">Lediga bord</h2>
+                        <div class="row g-3">
+                            @foreach (var bord in Model.Resultat)
+                            {
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="bc-card p-3 text-center">
+                                        <div style="font-size:2rem;">🍽️</div>
+                                        <h3 class="h5 mb-1">Bord @bord.Bordsnummer</h3>
+                                        <p class="text-muted mb-0">Upp till @bord.Kapacitet gäster</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            Tyvärr finns inga lediga bord för vald tid. Prova en annan tid eller färre gäster.
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

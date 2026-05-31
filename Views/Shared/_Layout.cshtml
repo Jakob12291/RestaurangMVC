@@ -1,0 +1,102 @@
+﻿@using System.Security.Claims
+@{
+    var title = ViewData["Title"] as string;
+    var fullTitle = string.IsNullOrEmpty(title) ? "Bella Cucina – Italiensk restaurang" : $"{title} | Bella Cucina";
+    var description = ViewData["Description"] as string
+        ?? "Bella Cucina – autentisk italiensk matlagning med färska råvaror. Se vår meny, hitta lediga bord och boka ditt besök.";
+    var isAdmin = User.Identity?.IsAuthenticated ?? false;
+}
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@fullTitle</title>
+    <meta name="description" content="@description" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Bella Cucina" />
+    <meta property="og:title" content="@fullTitle" />
+    <meta property="og:description" content="@description" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta name="theme-color" content="#0b6b3a" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bc-navbar sticky-top">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <span class="bc-brand-mark">BC</span>
+                    <span class="bc-brand-text">Bella&nbsp;Cucina</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Växla navigering">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Hem</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Meny" asp-action="Index">Meny</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Bokning" asp-action="Index">Boka bord</a></li>
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-light ms-lg-2">Logga ut</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Logga in</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="bc-footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h3 class="bc-footer-brand">Bella Cucina</h3>
+                    <p class="mb-0">Autentisk italiensk matlagning sedan 1998.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Kontakt</h4>
+                    <p class="mb-1">Via Roma 12, 111 22 Stockholm</p>
+                    <p class="mb-1">08-123 45 67</p>
+                    <p class="mb-0">ciao@bellacucina.se</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Öppettider</h4>
+                    <p class="mb-1">Mån–Tor: 11–22</p>
+                    <p class="mb-1">Fre–Lör: 11–24</p>
+                    <p class="mb-0">Sön: 12–21</p>
+                </div>
+            </div>
+            <hr class="bc-footer-hr" />
+            <p class="text-center mb-0 small">© @DateTime.Now.Year Bella Cucina. Alla rättigheter förbehållna.</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,23 @@
+@model MenyFormModel
+@{
+    ViewData["Title"] = "Ny rätt";
+}
+
+<div class="bc-admin-head"><div class="container"><h1>Ny rätt</h1></div></div>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="bc-card p-4">
+                <form method="post" asp-action="Create">
+                    @Html.AntiForgeryToken()
+                    <partial name="_MenyForm" model="Model" />
+                    <button type="submit" class="btn-bc">Spara</button>
+                    <a asp-action="Index" class="btn btn-link">Avbryt</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

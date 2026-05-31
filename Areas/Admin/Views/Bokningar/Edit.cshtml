@@ -1,0 +1,48 @@
+@model BokningFormModel
+@{
+    ViewData["Title"] = "Ändra bokning";
+}
+
+<div class="bc-admin-head"><div class="container"><h1>Ändra bokning</h1></div></div>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="bc-card p-4">
+                <form method="post" asp-action="Edit">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="KundNamn" />
+                    <input type="hidden" asp-for="KundTelefon" />
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="BordId" class="form-label"></label>
+                        <select asp-for="BordId" class="form-select"
+                                asp-items="@(new SelectList(Model.TillgängligaBord, "Id", "Bordsnummer"))">
+                            <option value="">-- Välj bord --</option>
+                        </select>
+                        <span asp-validation-for="BordId" class="text-danger small"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="StartTid" class="form-label"></label>
+                            <input asp-for="StartTid" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="StartTid" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="AntalGaster" class="form-label"></label>
+                            <input asp-for="AntalGaster" type="number" min="1" class="form-control" />
+                            <span asp-validation-for="AntalGaster" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Gäst: <strong>@Model.KundNamn</strong></p>
+                    <button type="submit" class="btn-bc">Spara ändringar</button>
+                    <a asp-action="Index" class="btn btn-link">Avbryt</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

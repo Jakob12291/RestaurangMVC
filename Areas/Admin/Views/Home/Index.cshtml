@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Admin";
+    ViewData["Description"] = "Administratörsöversikt.";
+}
+
+<div class="bc-admin-head">
+    <div class="container">
+        <h1>Administration</h1>
+        <p class="mb-0">Hantera bokningar, meny och bord.</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="bc-card p-4 text-center h-100">
+                <div style="font-size:2.5rem;">📅</div>
+                <h2 class="h4">Bokningar</h2>
+                <p class="text-muted">Se, skapa, ändra och ta bort bokningar.</p>
+                <a asp-controller="Bokningar" asp-action="Index" class="btn-bc">Hantera bokningar</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bc-card p-4 text-center h-100">
+                <div style="font-size:2.5rem;">🍝</div>
+                <h2 class="h4">Meny</h2>
+                <p class="text-muted">Lägg till, uppdatera och ta bort rätter.</p>
+                <a asp-controller="Meny" asp-action="Index" class="btn-bc">Hantera meny</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bc-card p-4 text-center h-100">
+                <div style="font-size:2.5rem;">🍽️</div>
+                <h2 class="h4">Bord</h2>
+                <p class="text-muted">Hantera restaurangens bord och kapacitet.</p>
+                <a asp-controller="Bord" asp-action="Index" class="btn-bc">Hantera bord</a>
+            </div>
+        </div>
+    </div>
+</div>

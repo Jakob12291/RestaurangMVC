@@ -1,0 +1,33 @@
+@model BordFormModel
+@{
+    ViewData["Title"] = "Nytt bord";
+}
+
+<div class="bc-admin-head"><div class="container"><h1>Nytt bord</h1></div></div>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="bc-card p-4">
+                <form method="post" asp-action="Create">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <div class="mb-3">
+                        <label asp-for="Bordsnummer" class="form-label"></label>
+                        <input asp-for="Bordsnummer" class="form-control" />
+                        <span asp-validation-for="Bordsnummer" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="Kapacitet" class="form-label"></label>
+                        <input asp-for="Kapacitet" class="form-control" />
+                        <span asp-validation-for="Kapacitet" class="text-danger small"></span>
+                    </div>
+                    <button type="submit" class="btn-bc">Spara</button>
+                    <a asp-action="Index" class="btn btn-link">Avbryt</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

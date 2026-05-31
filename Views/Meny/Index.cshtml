@@ -1,0 +1,55 @@
+@model List<MenyItem>
+@{
+    ViewData["Title"] = "Meny";
+    ViewData["Description"] = "Utforska Bella Cucinas meny – handgjord pasta, vedugnsbakad pizza, antipasti och italienska desserter. Färska råvaror och äkta italienska smaker.";
+}
+
+<div class="bc-admin-head" style="background: var(--bc-green);">
+    <div class="container text-center">
+        <p class="bc-eyebrow" style="color:#ffd9a0;">La nostra cucina</p>
+        <h1>Vår meny</h1>
+    </div>
+</div>
+
+<section class="bc-section pt-4">
+    <div class="container">
+        @if (ViewBag.Fel != null)
+        {
+            <div class="alert alert-warning text-center">@ViewBag.Fel</div>
+        }
+        else if (Model.Count == 0)
+        {
+            <p class="text-center text-muted">Menyn är tom just nu.</p>
+        }
+        else
+        {
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    @foreach (var rätt in Model.OrderByDescending(m => m.IsPopular).ThenBy(m => m.Namn))
+                    {
+                        <div class="bc-menu-item">
+                            @if (!string.IsNullOrWhiteSpace(rätt.BildUrl))
+                            {
+                                <img class="bc-menu-item__img" src="@rätt.BildUrl" loading="lazy"
+                                     width="120" height="90" alt="@rätt.Namn" />
+                            }
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-baseline gap-3">
+                                    <h3 class="h5 mb-1">
+                                        @rätt.Namn
+                                        @if (rätt.IsPopular) { <span class="bc-badge ms-2">Populär</span> }
+                                    </h3>
+                                    <span class="bc-price">@rätt.Pris.ToString("0") kr</span>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(rätt.Beskrivning))
+                                {
+                                    <p class="text-muted mb-0">@rätt.Beskrivning</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>

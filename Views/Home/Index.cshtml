@@ -1,7 +1,7 @@
 ﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Hem";
-    ViewData["Description"] = "Bella Cucina i Stockholm – autentisk italiensk matlagning med färska råvaror, handgjord pasta och ett varmt välkomnande. Se menyn och boka bord online.";
+    ViewData["Description"] = "Smakbordet i Stockholm – god mat med färska råvaror och ett varmt välkomnande. Se menyn och boka bord online.";
 }
 
 @section Scripts {
@@ -9,13 +9,13 @@
     {
       "@@context": "https://schema.org",
       "@@type": "Restaurant",
-      "name": "Bella Cucina",
-      "servesCuisine": "Italian",
+      "name": "Smakbordet",
+      "servesCuisine": "Swedish",
       "priceRange": "$$",
       "telephone": "+46812345678",
       "address": {
         "@@type": "PostalAddress",
-        "streetAddress": "Via Roma 12",
+        "streetAddress": "Storgatan 1",
         "postalCode": "111 22",
         "addressLocality": "Stockholm",
         "addressCountry": "SE"
@@ -26,11 +26,11 @@
 
 <section class="bc-hero">
     <div class="container text-center">
-        <p class="bc-eyebrow">Benvenuti · Välkommen</p>
-        <h1>Smaken av Italien, mitt i Stockholm</h1>
+        <p class="bc-eyebrow">Välkommen</p>
+        <h1>God mat, mitt i Stockholm</h1>
         <p>
-            På Bella Cucina lagar vi mat med hjärta – handgjord pasta, vedugnsbakad pizza
-            och råvaror direkt från Italien. En bit av la dolce vita, varje dag.
+            På Smakbordet lagar vi mat med hjärta – färska råvaror, omtanke
+            och ett varmt välkomnande. Välkommen in till oss.
         </p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
             <a asp-controller="Meny" asp-action="Index" class="btn-bc">Se vår meny</a>
@@ -43,16 +43,14 @@
     <div class="container">
         <div class="row align-items-center gy-4">
             <div class="col-lg-6">
-                <p class="bc-eyebrow">Vår historia</p>
-                <h2 class="mb-3">Familjetradition sedan 1998</h2>
+                <p class="bc-eyebrow">Om oss</p>
+                <h2 class="mb-3">Vår restaurang</h2>
                 <p class="text-muted">
-                    Bella Cucina grundades av familjen Rossi med en enkel idé: att dela den
-                    italienska matglädjen med Stockholm. I vårt kök möts generationers recept
-                    med årstidens bästa råvaror.
+                    Smakbordet är en mysig restaurang i hjärtat av Stockholm. Vi lagar
+                    god mat från grunden med årstidens bästa råvaror.
                 </p>
                 <p class="text-muted">
-                    Hos oss ska du känna dig som hemma hos en italiensk farmor – god mat,
-                    värme och tid att njuta.
+                    Hos oss ska du känna dig hemma – god mat, värme och tid att njuta.
                 </p>
                 <a asp-controller="Bokning" asp-action="Index" class="btn-bc mt-2">Boka ditt besök</a>
             </div>
@@ -60,7 +58,7 @@
                 <img class="img-fluid rounded-4 shadow-sm"
                      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=70"
                      width="900" height="600" loading="lazy"
-                     alt="Matsalen på den italienska restaurangen Bella Cucina" />
+                     alt="Matsalen på restaurangen Smakbordet" />
             </div>
         </div>
     </div>
